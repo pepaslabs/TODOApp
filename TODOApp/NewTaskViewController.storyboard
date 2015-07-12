@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--New Task View Controller-->
+        <scene sceneID="Hd4-Jj-JcU">
+            <objects>
+                <viewController storyboardIdentifier="NewTaskViewController" id="yei-D0-NTe" customClass="NewTaskViewController" customModule="TODOApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="h8d-ax-0bZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="aaa-hp-bcg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Dwq-Gc-Sjc">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rp7-uM-KBN">
+                                <rect key="frame" x="16" y="20" width="568" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1aj-Mg-PG4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rp7-uM-KBN" firstAttribute="top" secondItem="h8d-ax-0bZ" secondAttribute="bottom" constant="20" id="IVo-ka-x4f"/>
+                            <constraint firstItem="rp7-uM-KBN" firstAttribute="leading" secondItem="Dwq-Gc-Sjc" secondAttribute="leadingMargin" id="foc-0K-cp7"/>
+                            <constraint firstItem="rp7-uM-KBN" firstAttribute="trailing" secondItem="Dwq-Gc-Sjc" secondAttribute="trailingMargin" id="puv-LG-xyQ"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="taskTitleTextField" destination="rp7-uM-KBN" id="2RI-4s-cdZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tUz-p0-pF0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="940" y="421"/>
+        </scene>
+    </scenes>
+</document>
