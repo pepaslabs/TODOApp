@@ -12,3 +12,7 @@ In this episode, we fix the "Done" button and return key behavior.
 * Youtube: 
 * Reddit:
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode2
+
+## Future Episode Backlog:
+* Add a tap gesture recognizer to background to dismiss keyboard.
+* Start working on the tasks table view controller.
