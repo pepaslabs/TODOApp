@@ -10,7 +10,7 @@ In this episode, we start by working on a modal view controller used to create a
 ## Episode 2
 In this episode, we fix the "Done" button and return key behavior.
 * Youtube: http://youtu.be/saLhvQPdnJc 
-* Reddit:
+* Reddit: http://redd.it/3d7mtw
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode2
 
 ## Future Episode Backlog:
