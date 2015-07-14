@@ -18,6 +18,11 @@ class NewTaskViewController: UIViewController
 {
     @IBOutlet weak var taskTitleTextField: UITextField!
     weak var taskCapturingDelegate: ModalTaskCapturingDelegateProtocol?
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 }
 
 // MARK: Factory methods
@@ -44,8 +49,56 @@ extension NewTaskViewController
     {
         super.viewDidLoad()
         title = "New Task"
-        _addCancelBarButtonItemToNavBar()
-        _addDoneBarButtonItemToNavBar()
+        _setupNavBarButtons()
+        _setupTextField()
+    }
+
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        _subscribeToTextFieldNotifications()
+        _updateNavBarDoneButtonEnabledness()
+    }
+
+    override func viewDidDisappear(animated: Bool)
+    {
+        super.viewDidDisappear(animated)
+        _unsubscribeFromTextFieldNotifications()
+    }
+}
+
+extension NewTaskViewController: UITextFieldDelegate
+{
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        _textFieldDoneButtonWillGetTapped()
+        return true
+    }
+}
+
+// MARK: UITextField methods
+extension NewTaskViewController
+{
+    private func _subscribeToTextFieldNotifications()
+    {
+        let action: Selector = "textFieldDidChangeNotificationHandler:"
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: action,
+            name: UITextFieldTextDidChangeNotification,
+            object: taskTitleTextField)
+        
+    }
+    
+    private func _unsubscribeFromTextFieldNotifications()
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self,
+            name: UITextFieldTextDidChangeNotification,
+            object: taskTitleTextField)
+    }
+    
+    func textFieldDidChangeNotificationHandler(notification: NSNotification)
+    {
+        _updateNavBarDoneButtonEnabledness()
     }
 }
 
@@ -68,8 +121,8 @@ extension NewTaskViewController
     
     func doneButtonDidGetTapped()
     {
-        let title = taskTitleTextField.text
-        taskCapturingDelegate?.taskCapturingModalDidFinish(title)
+        taskTitleTextField.resignFirstResponder()
+        _finishIfAppropriate()
     }
     
     private func _addCancelBarButtonItemToNavBar()
@@ -90,4 +143,41 @@ extension NewTaskViewController
     {
         taskCapturingDelegate?.taskCapturingModalDidCancel()
     }
+    
+    private func _updateNavBarDoneButtonEnabledness()
+    {
+        let shouldEnable = count(taskTitleTextField.text) > 0
+        navigationItem.rightBarButtonItem?.enabled = shouldEnable
+    }
 }
+
+// MARK: private helpers
+extension NewTaskViewController
+{
+    private func _setupNavBarButtons()
+    {
+        _addCancelBarButtonItemToNavBar()
+        _addDoneBarButtonItemToNavBar()
+        
+    }
+    private func _setupTextField()
+    {
+        taskTitleTextField.returnKeyType = .Done
+        taskTitleTextField.delegate = self
+    }
+    
+    private func _textFieldDoneButtonWillGetTapped()
+    {
+        doneButtonDidGetTapped()
+    }
+    
+    private func _finishIfAppropriate()
+    {
+        if count(taskTitleTextField.text) > 0
+        {
+            let title = taskTitleTextField.text
+            taskCapturingDelegate?.taskCapturingModalDidFinish(title)
+        }
+    }
+}
+
