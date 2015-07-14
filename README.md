@@ -4,7 +4,7 @@ An iOS (Swift 1.2) task management app written as part of a "Watch People Code" 
 ## Episode 1
 In this episode, we start by working on a modal view controller used to create a new task.
 * Youtube: https://youtu.be/zUu7XC8Zpig
-* Reddit: https://www.reddit.com/r/WatchPeopleCode/comments/3d21ug/lets_create_an_ios_todo_app_episode_1_swift_12/
+* Reddit: http://redd.it/3d21ug
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode1
 
 ## Episode 2
