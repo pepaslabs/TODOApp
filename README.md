@@ -16,7 +16,7 @@ In this episode, we fix the "Done" button and return key behavior.
 ## Episode 3
 In this episode, we add a tap recognizer to the background view to dismiss the keyboard.
 * Youtube: http://youtu.be/zpuJBDuCLQ4 (5 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3dc1uw
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode3
 
 ## Future Episode Backlog:
