@@ -51,8 +51,9 @@ extension NewTaskViewController
         title = "New Task"
         _setupNavBarButtons()
         _setupTextField()
+        _setupBackgroundView()
     }
-
+    
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
@@ -100,11 +101,28 @@ extension NewTaskViewController
     {
         _updateNavBarDoneButtonEnabledness()
     }
+
+    private func _setupTextField()
+    {
+        taskTitleTextField.returnKeyType = .Done
+        taskTitleTextField.delegate = self
+    }
+    
+    private func _textFieldDoneButtonWillGetTapped()
+    {
+        doneButtonDidGetTapped()
+    }
 }
 
 // MARK: buttons
 extension NewTaskViewController
 {
+    private func _setupNavBarButtons()
+    {
+        _addCancelBarButtonItemToNavBar()
+        _addDoneBarButtonItemToNavBar()
+    }
+
     private func _addDoneBarButtonItemToNavBar()
     {
         navigationItem.rightBarButtonItem = _createDoneBarButtonItem()
@@ -151,26 +169,25 @@ extension NewTaskViewController
     }
 }
 
+// MARK: background view
+extension NewTaskViewController
+{
+    private func _setupBackgroundView()
+    {
+        let action: Selector = "tapDidGetRecognized:"
+        let recognizer = UITapGestureRecognizer(target: self, action: action)
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    func tapDidGetRecognized(recognizer: UITapGestureRecognizer)
+    {
+        taskTitleTextField.resignFirstResponder()
+    }
+}
+
 // MARK: private helpers
 extension NewTaskViewController
 {
-    private func _setupNavBarButtons()
-    {
-        _addCancelBarButtonItemToNavBar()
-        _addDoneBarButtonItemToNavBar()
-        
-    }
-    private func _setupTextField()
-    {
-        taskTitleTextField.returnKeyType = .Done
-        taskTitleTextField.delegate = self
-    }
-    
-    private func _textFieldDoneButtonWillGetTapped()
-    {
-        doneButtonDidGetTapped()
-    }
-    
     private func _finishIfAppropriate()
     {
         if count(taskTitleTextField.text) > 0
