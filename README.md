@@ -22,7 +22,7 @@ In this episode, we add a tap recognizer to the background view to dismiss the k
 ## Episode 4
 In this episode, we implement a trivial TaskStore and update ViewController to display the count of tasks.
 * Youtube: http://youtu.be/YOlgXXjsxLU (20 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3dli3d
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode4
 
 ## Future Episode Backlog:
