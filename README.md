@@ -25,5 +25,13 @@ In this episode, we implement a trivial TaskStore and update ViewController to d
 * Reddit: http://redd.it/3dli3d
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode4
 
+## Episode 5
+In this episode, we implement a trivial (read-only) UITableView of tasks.
+* Youtube: http://youtu.be/C1Kkx6LwHxo (56 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode5
+
 ## Future Episode Backlog:
-* Start working on the tasks table view controller.
+* Mark tasks completed / delete tasks
+* Re-order tasks
+
