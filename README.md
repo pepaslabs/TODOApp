@@ -28,7 +28,7 @@ In this episode, we implement a trivial TaskStore and update ViewController to d
 ## Episode 5
 In this episode, we implement a trivial (read-only) UITableView of tasks.
 * Youtube: http://youtu.be/C1Kkx6LwHxo (56 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3dvqxr
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode5
 
 ## Future Episode Backlog:
