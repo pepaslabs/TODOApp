@@ -59,6 +59,7 @@ extension NewTaskViewController
         super.viewWillAppear(animated)
         _subscribeToTextFieldNotifications()
         _updateNavBarDoneButtonEnabledness()
+        taskTitleTextField.becomeFirstResponder()
     }
 
     override func viewDidDisappear(animated: Bool)
@@ -159,6 +160,7 @@ extension NewTaskViewController
     
     func cancelButtonDidGetTapped()
     {
+        taskTitleTextField.resignFirstResponder()
         taskCapturingDelegate?.taskCapturingModalDidCancel()
     }
     

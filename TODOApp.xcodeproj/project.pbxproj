@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7121B5C32190049DC9D /* TaskStore.swift */; };
+		2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */; };
+		2B65A7171B5C336F0049DC9D /* TasksTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */; };
 		2B868B261B52D3520091F7A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B868B251B52D3520091F7A6 /* AppDelegate.swift */; };
 		2B868B281B52D3520091F7A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B868B271B52D3520091F7A6 /* ViewController.swift */; };
 		2B868B2B1B52D3520091F7A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B868B291B52D3520091F7A6 /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B65A7121B5C32190049DC9D /* TaskStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
+		2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
+		2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TasksTableViewController.storyboard; sourceTree = "<group>"; };
 		2B868B201B52D3520091F7A6 /* TODOApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TODOApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B868B241B52D3520091F7A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B868B251B52D3520091F7A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +89,9 @@
 			children = (
 				2B868B251B52D3520091F7A6 /* AppDelegate.swift */,
 				2B868B271B52D3520091F7A6 /* ViewController.swift */,
+				2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */,
+				2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */,
+				2B65A7121B5C32190049DC9D /* TaskStore.swift */,
 				2B868B291B52D3520091F7A6 /* Main.storyboard */,
 				2B868B451B52D3870091F7A6 /* NewTaskViewController.swift */,
 				2B868B471B52D40A0091F7A6 /* NewTaskViewController.storyboard */,
@@ -200,6 +209,7 @@
 			files = (
 				2B868B2B1B52D3520091F7A6 /* Main.storyboard in Resources */,
 				2B868B301B52D3520091F7A6 /* LaunchScreen.xib in Resources */,
+				2B65A7171B5C336F0049DC9D /* TasksTableViewController.storyboard in Resources */,
 				2B868B481B52D40A0091F7A6 /* NewTaskViewController.storyboard in Resources */,
 				2B868B2D1B52D3520091F7A6 /* Images.xcassets in Resources */,
 			);
@@ -221,6 +231,8 @@
 			files = (
 				2B868B281B52D3520091F7A6 /* ViewController.swift in Sources */,
 				2B868B461B52D3870091F7A6 /* NewTaskViewController.swift in Sources */,
+				2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */,
+				2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */,
 				2B868B261B52D3520091F7A6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,6 +431,7 @@
 				2B868B411B52D3520091F7A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2B868B421B52D3520091F7A6 /* Build configuration list for PBXNativeTarget "TODOAppTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +440,7 @@
 				2B868B441B52D3520091F7A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
