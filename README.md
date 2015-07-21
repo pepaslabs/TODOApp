@@ -34,7 +34,7 @@ In this episode, we implement a trivial (read-only) UITableView of tasks.
 ## Episode 6
 In this episode, we implement deleting tasks.
 * Youtube: http://youtu.be/YnYVNyUcy8o (21 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3e0uy4
 * Github tab: https://github.com/pepaslabs/TODOApp/releases/tag/episode6
 
 ## Future Episode Backlog:
