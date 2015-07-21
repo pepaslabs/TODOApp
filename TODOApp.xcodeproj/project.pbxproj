@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B293E8A1B5DD4980076C701 /* TasksTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */; };
 		2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7121B5C32190049DC9D /* TaskStore.swift */; };
 		2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */; };
 		2B65A7171B5C336F0049DC9D /* TasksTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewDataSource.swift; sourceTree = "<group>"; };
 		2B65A7121B5C32190049DC9D /* TaskStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
 		2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TasksTableViewController.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				2B868B271B52D3520091F7A6 /* ViewController.swift */,
 				2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */,
 				2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */,
+				2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */,
 				2B65A7121B5C32190049DC9D /* TaskStore.swift */,
 				2B868B291B52D3520091F7A6 /* Main.storyboard */,
 				2B868B451B52D3870091F7A6 /* NewTaskViewController.swift */,
@@ -230,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B868B281B52D3520091F7A6 /* ViewController.swift in Sources */,
+				2B293E8A1B5DD4980076C701 /* TasksTableViewDataSource.swift in Sources */,
 				2B868B461B52D3870091F7A6 /* NewTaskViewController.swift in Sources */,
 				2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */,
 				2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */,

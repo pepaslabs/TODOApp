@@ -42,6 +42,44 @@ extension TasksTableViewController
     }
 }
 
+extension TasksTableViewController: UITableViewDelegate
+{
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        _showMenuForCellAtIndex(indexPath.row)
+    }
+}
+
+// MARK: Cell editing methods
+extension TasksTableViewController
+{
+    private func _showMenuForCellAtIndex(index: Int)
+    {
+        let actionSheet = _createMenuForCellAtIndex(index)
+        presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    private func _createMenuForCellAtIndex(index: Int) -> UIAlertController
+    {
+        let actionSheet = UIAlertController(title:nil, message:nil, preferredStyle:.ActionSheet)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { [weak self] (action) -> Void in
+            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow()
+            {
+                self?.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+            }
+        }
+        actionSheet.addAction(cancelAction)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) { [weak self] (action) -> Void in
+            self?.dataSource.deleteTaskAtIndex(index)
+        }
+        actionSheet.addAction(deleteAction)
+
+        return actionSheet
+    }
+}
+
 // MARK: buttons
 extension TasksTableViewController
 {
@@ -99,52 +137,3 @@ extension TasksTableViewController
         tableView.dataSource = dataSource
     }
 }
-
-class TasksTableViewDataSource: NSObject, UITableViewDataSource
-{
-    var taskStore: TaskStoreProtocol?
-    weak var tableView: UITableView?
-
-    func addTask(taskTitle: String)
-    {
-        taskStore?.addTask(taskTitle)
-        tableView?.reloadData()
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if let store = taskStore
-        {
-            return store.tasksCount()
-        }
-        else
-        {
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath) as! UITableViewCell
-        
-        if let title = taskStore?.taskTitleAtIndex(indexPath.row)
-        {
-            cell.configureWithTaskTitle(title)
-        }
-        else
-        {
-            cell.textLabel?.text = ""
-        }
-        
-        return cell
-    }
-}
-
-extension UITableViewCell
-{
-    func configureWithTaskTitle(title: String)
-    {
-        textLabel?.text = title
-    }
-}
-

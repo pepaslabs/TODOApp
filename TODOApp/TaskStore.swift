@@ -13,6 +13,7 @@ protocol TaskStoreProtocol
     func addTask(taskTitle: String)
     func tasksCount() -> Int
     func taskTitleAtIndex(index: Int) -> String?
+    func deleteTaskAtIndex(index: Int)
 }
 
 extension Array
@@ -48,6 +49,11 @@ class InMemoryTaskStore: TaskStoreProtocol
     {
         return tasks.get(index)
     }
+    
+    func deleteTaskAtIndex(index: Int)
+    {
+        tasks.removeAtIndex(index)
+    }
 }
 
 class NSUserDefaultsTaskStore: TaskStoreProtocol
@@ -73,6 +79,12 @@ class NSUserDefaultsTaskStore: TaskStoreProtocol
         return tasks.get(index)
     }
 
+    func deleteTaskAtIndex(index: Int)
+    {
+        tasks.removeAtIndex(index)
+        _writeTasksToDisk()
+    }
+    
     private var tasks: [String] = [String]()
     
     private let _tasksNSUserDefaultsKey: String = "_tasksNSUserDefaultsKey"
