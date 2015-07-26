@@ -37,7 +37,12 @@ In this episode, we implement deleting tasks.
 * Reddit: http://redd.it/3e0uy4
 * Github tab: https://github.com/pepaslabs/TODOApp/releases/tag/episode6
 
+## Episode 7
+In this episode, we discuss a pull request and implement reordering tasks.
+* Youtube: http://youtu.be/uO-xrcfoIBo (40 minutes)
+* Reddit: 
+* Github tab: https://github.com/pepaslabs/TODOApp/releases/tag/episode7
+
 ## Future Episode Backlog:
 * Mark tasks completed
-* Re-order tasks
-
+* Support multiple lists
