@@ -132,10 +132,10 @@ extension NewTaskViewController
     private func _createDoneBarButtonItem() -> UIBarButtonItem
     {
         let action: Selector = "doneButtonDidGetTapped"
-        let doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
             target: self,
             action: action)
-        return doneBarButtonItem
+        return barButtonItem
     }
     
     func doneButtonDidGetTapped()

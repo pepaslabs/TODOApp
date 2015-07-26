@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B293E8A1B5DD4980076C701 /* TasksTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */; };
+		2B3F562F1B6585E80008C597 /* UIAlertController+addAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3F562E1B6585E80008C597 /* UIAlertController+addAction.swift */; };
+		2B3F56311B6586150008C597 /* Array+get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3F56301B6586150008C597 /* Array+get.swift */; };
 		2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7121B5C32190049DC9D /* TaskStore.swift */; };
 		2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */; };
 		2B65A7171B5C336F0049DC9D /* TasksTableViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewDataSource.swift; sourceTree = "<group>"; };
+		2B3F562E1B6585E80008C597 /* UIAlertController+addAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+addAction.swift"; sourceTree = "<group>"; };
+		2B3F56301B6586150008C597 /* Array+get.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+get.swift"; sourceTree = "<group>"; };
 		2B65A7121B5C32190049DC9D /* TaskStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskStore.swift; sourceTree = "<group>"; };
 		2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TasksTableViewController.swift; sourceTree = "<group>"; };
 		2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TasksTableViewController.storyboard; sourceTree = "<group>"; };
@@ -92,6 +96,8 @@
 				2B868B251B52D3520091F7A6 /* AppDelegate.swift */,
 				2B868B271B52D3520091F7A6 /* ViewController.swift */,
 				2B65A7141B5C33060049DC9D /* TasksTableViewController.swift */,
+				2B3F562E1B6585E80008C597 /* UIAlertController+addAction.swift */,
+				2B3F56301B6586150008C597 /* Array+get.swift */,
 				2B65A7161B5C336F0049DC9D /* TasksTableViewController.storyboard */,
 				2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */,
 				2B65A7121B5C32190049DC9D /* TaskStore.swift */,
@@ -235,6 +241,8 @@
 				2B868B281B52D3520091F7A6 /* ViewController.swift in Sources */,
 				2B293E8A1B5DD4980076C701 /* TasksTableViewDataSource.swift in Sources */,
 				2B868B461B52D3870091F7A6 /* NewTaskViewController.swift in Sources */,
+				2B3F562F1B6585E80008C597 /* UIAlertController+addAction.swift in Sources */,
+				2B3F56311B6586150008C597 /* Array+get.swift in Sources */,
 				2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */,
 				2B65A7151B5C33060049DC9D /* TasksTableViewController.swift in Sources */,
 				2B868B261B52D3520091F7A6 /* AppDelegate.swift in Sources */,

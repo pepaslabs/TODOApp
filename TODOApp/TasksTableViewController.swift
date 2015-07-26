@@ -48,6 +48,11 @@ extension TasksTableViewController: UITableViewDelegate
     {
         _showMenuForCellAtIndex(indexPath.row)
     }
+    
+    override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle
+    {
+        return .None
+    }
 }
 
 // MARK: Cell editing methods
@@ -63,20 +68,37 @@ extension TasksTableViewController
     {
         let actionSheet = UIAlertController(title:nil, message:nil, preferredStyle:.ActionSheet)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { [weak self] (action) -> Void in
-            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow()
-            {
-                self?.tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
-            }
-        }
-        actionSheet.addAction(cancelAction)
+        actionSheet.addCancelAction("Cancel", handler: { [weak self] (action) -> Void in
+            self?._cancelActionDidGetSelected()
+        })
         
-        let deleteAction = UIAlertAction(title: "Delete", style: .Destructive) { [weak self] (action) -> Void in
-            self?.dataSource.deleteTaskAtIndex(index)
-        }
-        actionSheet.addAction(deleteAction)
-
+        actionSheet.addDestructiveAction("Delete", handler: { [weak self] (action) -> Void in
+            self?._deleteActionDidGetSelected(index)
+        })
+        
+        actionSheet.addDefaultAction("Reorder", handler: { [weak self] (action) -> Void in
+            self?._reorderActionDidGetSelected()
+        })
+        
         return actionSheet
+    }
+    
+    private func _cancelActionDidGetSelected()
+    {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow()
+        {
+            tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        }
+    }
+    
+    private func _deleteActionDidGetSelected(index: Int)
+    {
+        dataSource.deleteTaskAtIndex(index)
+    }
+    
+    private func _reorderActionDidGetSelected()
+    {
+        _enterTableViewEditingMode()
     }
 }
 
@@ -110,6 +132,25 @@ extension TasksTableViewController
         let navC = UINavigationController(rootViewController: vc)
         presentViewController(navC, animated: true, completion: nil)
     }
+    
+    private func _addDoneBarButtonItemToNavBar()
+    {
+        navigationItem.rightBarButtonItem = _createDoneBarButtonItem()
+    }
+    
+    private func _createDoneBarButtonItem() -> UIBarButtonItem
+    {
+        let action: Selector = "doneButtonDidGetTapped"
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .Done,
+            target: self,
+            action: action)
+        return barButtonItem
+    }
+    
+    func doneButtonDidGetTapped()
+    {
+        _leaveTableViewEditingMode()
+    }
 }
 
 extension TasksTableViewController: ModalTaskCapturingDelegateProtocol
@@ -135,5 +176,17 @@ extension TasksTableViewController
         dataSource.taskStore = NSUserDefaultsTaskStore()
         dataSource.tableView = tableView
         tableView.dataSource = dataSource
+    }
+    
+    private func _enterTableViewEditingMode()
+    {
+        tableView.setEditing(true, animated: true)
+        _addDoneBarButtonItemToNavBar()
+    }
+    
+    private func _leaveTableViewEditingMode()
+    {
+        tableView.setEditing(false, animated: true)
+        _addPlusBarButtonItemToNavBar()
     }
 }

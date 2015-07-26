@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TasksTableViewDataSource: NSObject, UITableViewDataSource
+class TasksTableViewDataSource: NSObject
 {
     var taskStore: TaskStoreProtocol?
     weak var tableView: UITableView?
@@ -26,7 +26,10 @@ class TasksTableViewDataSource: NSObject, UITableViewDataSource
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
     }
-    
+}
+
+extension TasksTableViewDataSource: UITableViewDataSource
+{
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if let store = taskStore
@@ -43,16 +46,15 @@ class TasksTableViewDataSource: NSObject, UITableViewDataSource
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("UITableViewCell", forIndexPath: indexPath) as! UITableViewCell
         
-        if let title = taskStore?.taskTitleAtIndex(indexPath.row)
-        {
-            cell.configureWithTaskTitle(title)
-        }
-        else
-        {
-            cell.textLabel?.text = ""
-        }
+        let title = taskStore?.taskTitleAtIndex(indexPath.row) ?? ""
+        cell.configureWithTaskTitle(title)
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
+    {
+        taskStore?.moveTaskAtIndex(sourceIndexPath.row, toIndex: destinationIndexPath.row)
     }
 }
 
