@@ -50,43 +50,45 @@ class InMemoryTaskStore: TaskStoreProtocol
 
 class NSUserDefaultsTaskStore: TaskStoreProtocol
 {
-    init()
+    init(name: String)
     {
-        tasks = _loadTasksFromDisk()
+        _name = name
+        _tasksNSUserDefaultsKey = "_tasks_\(_name)_NSUserDefaultsKey"
+        _tasks = _loadTasksFromDisk()
     }
     
     func addTask(taskTitle: String)
     {
-        tasks.append(taskTitle)
+        _tasks.append(taskTitle)
         _writeTasksToDisk()
     }
     
     func tasksCount() -> Int
     {
-        return count(tasks)
+        return count(_tasks)
     }
     
     func taskTitleAtIndex(index: Int) -> String?
     {
-        return tasks.get(index)
+        return _tasks.get(index)
     }
 
     func deleteTaskAtIndex(index: Int)
     {
-        tasks.removeAtIndex(index)
+        _tasks.removeAtIndex(index)
         _writeTasksToDisk()
     }
     
     func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
     {
-        let task = tasks.removeAtIndex(sourceIndex)
-        tasks.insert(task, atIndex: destinationIndex)
+        let task = _tasks.removeAtIndex(sourceIndex)
+        _tasks.insert(task, atIndex: destinationIndex)
         _writeTasksToDisk()
     }
 
-    private var tasks: [String] = [String]()
-    
-    private let _tasksNSUserDefaultsKey: String = "_tasksNSUserDefaultsKey"
+    private var _tasks: [String] = [String]()
+    private var _name: String
+    private let _tasksNSUserDefaultsKey: String
     
     private func _loadTasksFromDisk() -> [String]
     {
@@ -102,7 +104,7 @@ class NSUserDefaultsTaskStore: TaskStoreProtocol
     
     private func _writeTasksToDisk()
     {
-        NSUserDefaults.standardUserDefaults().setObject(tasks, forKey: _tasksNSUserDefaultsKey)
+        NSUserDefaults.standardUserDefaults().setObject(_tasks, forKey: _tasksNSUserDefaultsKey)
     }
 }
 

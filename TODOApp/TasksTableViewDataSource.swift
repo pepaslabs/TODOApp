@@ -11,6 +11,7 @@ import UIKit
 class TasksTableViewDataSource: NSObject
 {
     var taskStore: TaskStoreProtocol?
+    var doneTaskStore: TaskStoreProtocol?
     weak var tableView: UITableView?
     
     func addTask(taskTitle: String)
@@ -25,6 +26,18 @@ class TasksTableViewDataSource: NSObject
         
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
+    }
+    
+    func markTaskDoneAtIndex(index: Int)
+    {
+        if let title = taskStore?.taskTitleAtIndex(index)
+        {
+            taskStore?.deleteTaskAtIndex(index)
+            doneTaskStore?.addTask(title)
+            
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
+        }
     }
 }
 

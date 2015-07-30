@@ -68,16 +68,20 @@ extension TasksTableViewController
     {
         let actionSheet = UIAlertController(title:nil, message:nil, preferredStyle:.ActionSheet)
         
-        actionSheet.addCancelAction("Cancel", handler: { [weak self] (action) -> Void in
-            self?._cancelActionDidGetSelected()
+        actionSheet.addDefaultAction("Mark Done", handler: { [weak self] (action) -> Void in
+            self?._markDoneActionDidGetSelected(index)
+        })
+
+        actionSheet.addDefaultAction("Reorder", handler: { [weak self] (action) -> Void in
+            self?._reorderActionDidGetSelected()
         })
         
         actionSheet.addDestructiveAction("Delete", handler: { [weak self] (action) -> Void in
             self?._deleteActionDidGetSelected(index)
         })
         
-        actionSheet.addDefaultAction("Reorder", handler: { [weak self] (action) -> Void in
-            self?._reorderActionDidGetSelected()
+        actionSheet.addCancelAction("Cancel", handler: { [weak self] (action) -> Void in
+            self?._cancelActionDidGetSelected()
         })
         
         return actionSheet
@@ -99,6 +103,11 @@ extension TasksTableViewController
     private func _reorderActionDidGetSelected()
     {
         _enterTableViewEditingMode()
+    }
+    
+    private func _markDoneActionDidGetSelected(index: Int)
+    {
+        dataSource.markTaskDoneAtIndex(index)
     }
 }
 
@@ -173,7 +182,8 @@ extension TasksTableViewController
     private func _setupTableView()
     {
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier:"UITableViewCell")
-        dataSource.taskStore = NSUserDefaultsTaskStore()
+        dataSource.taskStore = NSUserDefaultsTaskStore(name: "To-Do")
+        dataSource.doneTaskStore = NSUserDefaultsTaskStore(name: "Done")
         dataSource.tableView = tableView
         tableView.dataSource = dataSource
     }
