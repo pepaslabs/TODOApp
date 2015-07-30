@@ -35,14 +35,21 @@ In this episode, we implement a trivial (read-only) UITableView of tasks.
 In this episode, we implement deleting tasks.
 * Youtube: http://youtu.be/YnYVNyUcy8o (21 minutes)
 * Reddit: http://redd.it/3e0uy4
-* Github tab: https://github.com/pepaslabs/TODOApp/releases/tag/episode6
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode6
 
 ## Episode 7
 In this episode, we discuss a pull request and implement reordering tasks.
 * Youtube: http://youtu.be/uO-xrcfoIBo (40 minutes)
 * Reddit: http://redd.it/3epky9
-* Github tab: https://github.com/pepaslabs/TODOApp/releases/tag/episode7
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode7
+
+## Episode 8
+In this episode, we implement marking tasks as "done".
+* Youtube: http://youtu.be/TpwzjuygjcI (17 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode8
 
 ## Future Episode Backlog:
-* Mark tasks completed
 * Support multiple lists
+* Support task title editing
+* Better UX (support slide-to-edit table cells)
