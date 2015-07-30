@@ -46,7 +46,7 @@ In this episode, we discuss a pull request and implement reordering tasks.
 ## Episode 8
 In this episode, we implement marking tasks as "done".
 * Youtube: http://youtu.be/TpwzjuygjcI (17 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3f4elp
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode8
 
 ## Future Episode Backlog:
