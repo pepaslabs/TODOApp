@@ -23,9 +23,7 @@ class TasksTableViewDataSource: NSObject
     func deleteTaskAtIndex(index: Int)
     {
         taskStore?.deleteTaskAtIndex(index)
-        
-        let indexPath = NSIndexPath(forRow: index, inSection: 0)
-        tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
+        _deleteRowAtIndex(index)
     }
     
     func markTaskDoneAtIndex(index: Int)
@@ -34,10 +32,14 @@ class TasksTableViewDataSource: NSObject
         {
             taskStore?.deleteTaskAtIndex(index)
             doneTaskStore?.addTask(title)
-            
-            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
+            _deleteRowAtIndex(index)
         }
+    }
+    
+    func setTaskTitle(title: String, atIndex index: Int)
+    {
+        taskStore?.setTaskTitle(title, atIndex: index)
+        _reloadRowAtIndex(index)
     }
 }
 
@@ -68,6 +70,22 @@ extension TasksTableViewDataSource: UITableViewDataSource
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
     {
         taskStore?.moveTaskAtIndex(sourceIndexPath.row, toIndex: destinationIndexPath.row)
+    }
+}
+
+// MARK: private helpers
+extension TasksTableViewDataSource
+{
+    private func _deleteRowAtIndex(index: Int)
+    {
+        let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        tableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
+    }
+    
+    private func _reloadRowAtIndex(index: Int)
+    {
+        let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        tableView?.reloadRowsAtIndexPaths([indexPath], withRowAnimation:.Automatic)
     }
 }
 

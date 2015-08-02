@@ -18,8 +18,8 @@
 		2B868B2D1B52D3520091F7A6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B868B2C1B52D3520091F7A6 /* Images.xcassets */; };
 		2B868B301B52D3520091F7A6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B868B2E1B52D3520091F7A6 /* LaunchScreen.xib */; };
 		2B868B3C1B52D3520091F7A6 /* TODOAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B868B3B1B52D3520091F7A6 /* TODOAppTests.swift */; };
-		2B868B461B52D3870091F7A6 /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B868B451B52D3870091F7A6 /* NewTaskViewController.swift */; };
-		2B868B481B52D40A0091F7A6 /* NewTaskViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B868B471B52D40A0091F7A6 /* NewTaskViewController.storyboard */; };
+		2B868B461B52D3870091F7A6 /* EditTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B868B451B52D3870091F7A6 /* EditTaskViewController.swift */; };
+		2B868B481B52D40A0091F7A6 /* EditTaskViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B868B471B52D40A0091F7A6 /* EditTaskViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +48,8 @@
 		2B868B351B52D3520091F7A6 /* TODOAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TODOAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B868B3A1B52D3520091F7A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B868B3B1B52D3520091F7A6 /* TODOAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODOAppTests.swift; sourceTree = "<group>"; };
-		2B868B451B52D3870091F7A6 /* NewTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
-		2B868B471B52D40A0091F7A6 /* NewTaskViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewTaskViewController.storyboard; sourceTree = "<group>"; };
+		2B868B451B52D3870091F7A6 /* EditTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTaskViewController.swift; sourceTree = "<group>"; };
+		2B868B471B52D40A0091F7A6 /* EditTaskViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EditTaskViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 				2B293E891B5DD4980076C701 /* TasksTableViewDataSource.swift */,
 				2B65A7121B5C32190049DC9D /* TaskStore.swift */,
 				2B868B291B52D3520091F7A6 /* Main.storyboard */,
-				2B868B451B52D3870091F7A6 /* NewTaskViewController.swift */,
-				2B868B471B52D40A0091F7A6 /* NewTaskViewController.storyboard */,
+				2B868B451B52D3870091F7A6 /* EditTaskViewController.swift */,
+				2B868B471B52D40A0091F7A6 /* EditTaskViewController.storyboard */,
 				2B868B2C1B52D3520091F7A6 /* Images.xcassets */,
 				2B868B2E1B52D3520091F7A6 /* LaunchScreen.xib */,
 				2B3F56301B6586150008C597 /* Array+get.swift */,
@@ -216,7 +216,7 @@
 				2B868B2B1B52D3520091F7A6 /* Main.storyboard in Resources */,
 				2B868B301B52D3520091F7A6 /* LaunchScreen.xib in Resources */,
 				2B65A7171B5C336F0049DC9D /* TasksTableViewController.storyboard in Resources */,
-				2B868B481B52D40A0091F7A6 /* NewTaskViewController.storyboard in Resources */,
+				2B868B481B52D40A0091F7A6 /* EditTaskViewController.storyboard in Resources */,
 				2B868B2D1B52D3520091F7A6 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,7 +236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B293E8A1B5DD4980076C701 /* TasksTableViewDataSource.swift in Sources */,
-				2B868B461B52D3870091F7A6 /* NewTaskViewController.swift in Sources */,
+				2B868B461B52D3870091F7A6 /* EditTaskViewController.swift in Sources */,
 				2B3F562F1B6585E80008C597 /* UIAlertController+addAction.swift in Sources */,
 				2B3F56311B6586150008C597 /* Array+get.swift in Sources */,
 				2B65A7131B5C32190049DC9D /* TaskStore.swift in Sources */,

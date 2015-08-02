@@ -72,6 +72,10 @@ extension TasksTableViewController
             self?._markDoneActionDidGetSelected(index)
         })
 
+        actionSheet.addDefaultAction("Edit", handler: { [weak self] (action) -> Void in
+            self?._editActionDidGetSelected(index)
+        })
+
         actionSheet.addDefaultAction("Reorder", handler: { [weak self] (action) -> Void in
             self?._reorderActionDidGetSelected()
         })
@@ -100,6 +104,11 @@ extension TasksTableViewController
         dataSource.deleteTaskAtIndex(index)
     }
     
+    private func _editActionDidGetSelected(index: Int)
+    {
+        _presentEditTaskViewController(index)
+    }
+
     private func _reorderActionDidGetSelected()
     {
         _enterTableViewEditingMode()
@@ -135,13 +144,9 @@ extension TasksTableViewController
     
     func plusButtonDidGetTapped()
     {
-        let vc = NewTaskViewController.instantiateFromStoryboard()
-        vc.taskCapturingDelegate = self
-        
-        let navC = UINavigationController(rootViewController: vc)
-        presentViewController(navC, animated: true, completion: nil)
+        _presentNewTaskViewController()
     }
-    
+
     private func _addDoneBarButtonItemToNavBar()
     {
         navigationItem.rightBarButtonItem = _createDoneBarButtonItem()
@@ -164,9 +169,15 @@ extension TasksTableViewController
 
 extension TasksTableViewController: ModalTaskCapturingDelegateProtocol
 {
-    func taskCapturingModalDidFinish(taskTitle: String)
+    func taskCapturingModalDidFinishCreatingNewTask(taskTitle: String)
     {
         dataSource.addTask(taskTitle)
+        presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+
+    func taskCapturingModalDidFinishEditingExistingTask(data: TaskEditingData)
+    {
+        dataSource.setTaskTitle(data.title, atIndex: data.index)
         presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -198,5 +209,34 @@ extension TasksTableViewController
     {
         tableView.setEditing(false, animated: true)
         _addPlusBarButtonItemToNavBar()
+    }
+    
+    private func _presentEditTaskViewController(index: Int)
+    {
+        if let title = dataSource.taskStore?.taskTitleAtIndex(index)
+        {
+            let data = TaskEditingData(title: title, index: index)
+            _presentEditTaskViewController(data)
+        }
+    }
+    
+    private func _presentEditTaskViewController(data: TaskEditingData)
+    {
+        let vc = EditTaskViewController.instantiateFromStoryboard(existingTaskData: data)
+        vc.taskCapturingDelegate = self
+        _presentTaskCapturingViewController(vc)
+    }
+    
+    private func _presentNewTaskViewController()
+    {
+        let vc = EditTaskViewController.instantiateFromStoryboard(existingTaskData: nil)
+        vc.taskCapturingDelegate = self
+        _presentTaskCapturingViewController(vc)
+    }
+    
+    private func _presentTaskCapturingViewController(vc: EditTaskViewController)
+    {
+        let navC = UINavigationController(rootViewController: vc)
+        presentViewController(navC, animated: true, completion: nil)
     }
 }

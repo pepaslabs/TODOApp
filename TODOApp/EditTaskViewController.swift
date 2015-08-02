@@ -1,5 +1,5 @@
 //
-//  NewTaskViewController.swift
+//  EditTaskViewController.swift
 //  TODOApp
 //
 //  Created by Pepas Personal on 7/12/15.
@@ -10,11 +10,24 @@ import UIKit
 
 protocol ModalTaskCapturingDelegateProtocol: class
 {
-    func taskCapturingModalDidFinish(taskTitle: String)
+    func taskCapturingModalDidFinishCreatingNewTask(taskTitle: String)
+    func taskCapturingModalDidFinishEditingExistingTask(data: TaskEditingData)
     func taskCapturingModalDidCancel()
 }
 
-class NewTaskViewController: UIViewController
+struct TaskEditingData
+{
+    var title: String
+    var index: Int
+    
+    init(title: String, index: Int)
+    {
+        self.title = title
+        self.index = index
+    }
+}
+
+class EditTaskViewController: UIViewController
 {
     @IBOutlet weak var taskTitleTextField: UITextField!
     weak var taskCapturingDelegate: ModalTaskCapturingDelegateProtocol?
@@ -23,33 +36,35 @@ class NewTaskViewController: UIViewController
     {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    private var data: TaskEditingData?
 }
 
 // MARK: Factory methods
-extension NewTaskViewController
+extension EditTaskViewController
 {
     class func storyboard() -> UIStoryboard
     {
-        let storyboard = UIStoryboard(name: "NewTaskViewController", bundle: nil)
+        let storyboard = UIStoryboard(name: "EditTaskViewController", bundle: nil)
         return storyboard
     }
     
-    class func instantiateFromStoryboard() -> NewTaskViewController
+    class func instantiateFromStoryboard(#existingTaskData: TaskEditingData?) -> EditTaskViewController
     {
         let storyboard = self.storyboard()
-        let vc = storyboard.instantiateViewControllerWithIdentifier("NewTaskViewController") as! NewTaskViewController
+        let vc = storyboard.instantiateViewControllerWithIdentifier("EditTaskViewController") as! EditTaskViewController
+        vc.data = existingTaskData
         return vc
     }
 }
 
 // MARK: View Lifecycle
-extension NewTaskViewController
+extension EditTaskViewController
 {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        title = "New Task"
-        _setupNavBarButtons()
+        _setupNavBar()
         _setupTextField()
         _setupBackgroundView()
     }
@@ -69,7 +84,7 @@ extension NewTaskViewController
     }
 }
 
-extension NewTaskViewController: UITextFieldDelegate
+extension EditTaskViewController: UITextFieldDelegate
 {
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
@@ -79,7 +94,7 @@ extension NewTaskViewController: UITextFieldDelegate
 }
 
 // MARK: UITextField methods
-extension NewTaskViewController
+extension EditTaskViewController
 {
     private func _subscribeToTextFieldNotifications()
     {
@@ -107,6 +122,7 @@ extension NewTaskViewController
     {
         taskTitleTextField.returnKeyType = .Done
         taskTitleTextField.delegate = self
+        taskTitleTextField.text = data?.title
     }
     
     private func _textFieldDoneButtonWillGetTapped()
@@ -116,7 +132,7 @@ extension NewTaskViewController
 }
 
 // MARK: buttons
-extension NewTaskViewController
+extension EditTaskViewController
 {
     private func _setupNavBarButtons()
     {
@@ -172,7 +188,7 @@ extension NewTaskViewController
 }
 
 // MARK: background view
-extension NewTaskViewController
+extension EditTaskViewController
 {
     private func _setupBackgroundView()
     {
@@ -188,14 +204,72 @@ extension NewTaskViewController
 }
 
 // MARK: private helpers
-extension NewTaskViewController
+extension EditTaskViewController
 {
     private func _finishIfAppropriate()
     {
         if count(taskTitleTextField.text) > 0
         {
-            let title = taskTitleTextField.text
-            taskCapturingDelegate?.taskCapturingModalDidFinish(title)
+            _finish()
+        }
+    }
+    
+    private func _finish()
+    {
+        if data != nil
+        {
+            _finishEditingExistingTask()
+        }
+        else
+        {
+            _finishCreatingNewTask()
+        }
+    }
+    
+    private func _finishCreatingNewTask()
+    {
+        let title = taskTitleTextField.text
+        taskCapturingDelegate?.taskCapturingModalDidFinishCreatingNewTask(title)
+    }
+    
+    private func _finishEditingExistingTask()
+    {
+        data!.title = taskTitleTextField.text
+        taskCapturingDelegate?.taskCapturingModalDidFinishEditingExistingTask(data!)
+    }
+    
+    private func _isEditingExistingTask() -> Bool
+    {
+        if data == nil
+        {
+            return false
+        }
+        else
+        {
+            return true
+        }
+    }
+    
+    private func _setupNavBar()
+    {
+        _setupNavBarTitle()
+        _setupNavBarButtons()
+    }
+    
+    private func _setupNavBarTitle()
+    {
+        title = _navBarTitle()
+    }
+    
+    private func _navBarTitle() -> String
+    {
+        if _isEditingExistingTask()
+        {
+            return "Edit Task"
+        }
+        else
+        {
+            return "New Task"
         }
     }
 }

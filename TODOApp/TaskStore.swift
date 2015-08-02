@@ -15,6 +15,7 @@ protocol TaskStoreProtocol
     func taskTitleAtIndex(index: Int) -> String?
     func deleteTaskAtIndex(index: Int)
     func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func setTaskTitle(title: String, atIndex index: Int)
 }
 
 class InMemoryTaskStore: TaskStoreProtocol
@@ -46,53 +47,70 @@ class InMemoryTaskStore: TaskStoreProtocol
         let task = tasks.removeAtIndex(sourceIndex)
         tasks.insert(task, atIndex: destinationIndex)
     }
+    
+    func setTaskTitle(title: String, atIndex index: Int)
+    {
+        if index < tasks.count
+        {
+            tasks[index] = title
+        }
+    }
 }
 
 class NSUserDefaultsTaskStore: TaskStoreProtocol
 {
     init(name: String)
     {
-        _name = name
-        _tasksNSUserDefaultsKey = "_tasks_\(_name)_NSUserDefaultsKey"
-        _tasks = _loadTasksFromDisk()
+        self.name = name
+        tasksNSUserDefaultsKey = "_tasks_\(name)_NSUserDefaultsKey"
+        tasks = _loadTasksFromDisk()
     }
     
     func addTask(taskTitle: String)
     {
-        _tasks.append(taskTitle)
+        tasks.append(taskTitle)
         _writeTasksToDisk()
     }
     
     func tasksCount() -> Int
     {
-        return count(_tasks)
+        return count(tasks)
     }
     
     func taskTitleAtIndex(index: Int) -> String?
     {
-        return _tasks.get(index)
+        return tasks.get(index)
     }
 
     func deleteTaskAtIndex(index: Int)
     {
-        _tasks.removeAtIndex(index)
+        tasks.removeAtIndex(index)
         _writeTasksToDisk()
     }
     
     func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
     {
-        let task = _tasks.removeAtIndex(sourceIndex)
-        _tasks.insert(task, atIndex: destinationIndex)
+        let task = tasks.removeAtIndex(sourceIndex)
+        tasks.insert(task, atIndex: destinationIndex)
         _writeTasksToDisk()
     }
 
-    private var _tasks: [String] = [String]()
-    private var _name: String
-    private let _tasksNSUserDefaultsKey: String
+    func setTaskTitle(title: String, atIndex index: Int)
+    {
+        if index < tasks.count
+        {
+            tasks[index] = title
+            _writeTasksToDisk()
+        }
+    }
+
+    private var tasks: [String] = [String]()
+    private var name: String
+    private let tasksNSUserDefaultsKey: String
     
     private func _loadTasksFromDisk() -> [String]
     {
-        if var tasks = NSUserDefaults.standardUserDefaults().arrayForKey(_tasksNSUserDefaultsKey) as? [String]
+        if var tasks = NSUserDefaults.standardUserDefaults().arrayForKey(tasksNSUserDefaultsKey) as? [String]
         {
             return tasks
         }
@@ -104,7 +122,7 @@ class NSUserDefaultsTaskStore: TaskStoreProtocol
     
     private func _writeTasksToDisk()
     {
-        NSUserDefaults.standardUserDefaults().setObject(_tasks, forKey: _tasksNSUserDefaultsKey)
+        NSUserDefaults.standardUserDefaults().setObject(tasks, forKey: tasksNSUserDefaultsKey)
     }
 }
 
