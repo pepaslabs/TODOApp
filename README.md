@@ -49,6 +49,12 @@ In this episode, we implement marking tasks as "done".
 * Reddit: http://redd.it/3f4elp
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode8
 
+## Episode 9
+In this episode, we implement task editing.
+* Youtube: http://youtu.be/hnmyMZOW42g (46 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode9
+
 ## Future Episode Backlog:
 * Support multiple lists
 * Support task title editing
