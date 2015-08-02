@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        let vc = TasksTableViewController.instantiateFromStoryboard()
+        let vc = ListsTableViewController.instantiateFromStoryboard()
         let navC = UINavigationController(rootViewController: vc)
         
         window?.rootViewController = navC
