@@ -58,7 +58,7 @@ In this episode, we implement task editing.
 ## Episode 10
 In this episode, we start implementing our list of lists.
 * Youtube: http://youtu.be/5GXioeBg924 (17 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3fl2ix
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode10
 
 ## Episode 11
