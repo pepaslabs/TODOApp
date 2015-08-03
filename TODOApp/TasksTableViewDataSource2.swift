@@ -1,17 +1,48 @@
 //
-//  TasksTableViewDataSource.swift
+//  TasksTableViewDataSource22.swift
 //  TODOApp
 //
-//  Created by Pepas Personal on 7/20/15.
+//  Created by Pepas Personal on 8/2/15.
 //  Copyright (c) 2015 Pepas Personal. All rights reserved.
 //
 
 import UIKit
 
-class TasksTableViewDataSource: NSObject
+class TaskStoreRepository
 {
-    var taskStore: TaskStoreProtocol?
-    var doneTaskStore: TaskStoreProtocol?
+    static var sharedInstance: TaskStoreRepository = TaskStoreRepository()
+    
+    private var stores = [String: TaskStoreProtocol]()
+    
+    func taskStore(name: String) -> TaskStoreProtocol
+    {
+        if let store = stores[name]
+        {
+            return store
+        }
+        else
+        {
+            let store = NSUserDefaultsTaskStore(name: name)
+            stores[name] = store
+            return store
+        }
+    }
+}
+
+class TasksTableViewDataSource2: NSObject
+{
+    let name: String
+    
+    init(name: String)
+    {
+        self.name = name
+        taskStore = TaskStoreRepository.sharedInstance.taskStore(name)
+        doneTaskStore = TaskStoreRepository.sharedInstance.taskStore("Done")
+    }
+    
+    weak var taskStore: TaskStoreProtocol?
+    weak var doneTaskStore: TaskStoreProtocol?
+    
     weak var tableView: UITableView?
     
     func addTask(taskTitle: String)
@@ -28,6 +59,11 @@ class TasksTableViewDataSource: NSObject
     
     func markTaskDoneAtIndex(index: Int)
     {
+        if name == "Done"
+        {
+            return
+        }
+        
         if let title = taskStore?.taskTitleAtIndex(index)
         {
             taskStore?.deleteTaskAtIndex(index)
@@ -43,7 +79,7 @@ class TasksTableViewDataSource: NSObject
     }
 }
 
-extension TasksTableViewDataSource: UITableViewDataSource
+extension TasksTableViewDataSource2: UITableViewDataSource
 {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -74,7 +110,7 @@ extension TasksTableViewDataSource: UITableViewDataSource
 }
 
 // MARK: private helpers
-extension TasksTableViewDataSource
+extension TasksTableViewDataSource2
 {
     private func _deleteRowAtIndex(index: Int)
     {
@@ -96,4 +132,3 @@ extension UITableViewCell
         textLabel?.text = title
     }
 }
-

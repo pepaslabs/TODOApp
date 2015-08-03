@@ -43,9 +43,16 @@ extension ListsTableViewController: UITableViewDelegate
     {
         if let title = dataSource.titleAtIndex(indexPath.row)
         {
-            if title == "Tasks"
-            {
+            switch title {
+                
+            case "Tasks":
                 _presentTasksTableViewController()
+                
+            case "Done":
+                _presentDoneTableViewController()
+
+            default:
+                return
             }
         }
     }
@@ -59,10 +66,18 @@ extension ListsTableViewController
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
         tableView.dataSource = dataSource
     }
-
+    
     private func _presentTasksTableViewController()
     {
-        let vc = TasksTableViewController.instantiateFromStoryboard()
+//        let vc = TasksTableViewController.instantiateFromStoryboard()
+        let vc = TasksTableViewController2Factory.createDefaultController()
+        navigationController?.showViewController(vc, sender: self)
+    }
+    
+    private func _presentDoneTableViewController()
+    {
+//        let vc = DoneTableViewController.instantiateFromStoryboard()
+        let vc = TasksTableViewController2Factory.createDoneController()
         navigationController?.showViewController(vc, sender: self)
     }
 }

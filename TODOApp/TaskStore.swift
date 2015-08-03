@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol TaskStoreProtocol
+protocol TaskStoreProtocol: class
 {
     func addTask(taskTitle: String)
     func tasksCount() -> Int
