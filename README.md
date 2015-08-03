@@ -64,7 +64,7 @@ In this episode, we start implementing our list of lists.
 ## Episode 11
 In this episode, we implement the "Done" view controller and experiment with composition instead of inheritance.
 * Youtube: http://youtu.be/CCiEiREXrHE (61 minutes)
-* Reddit: 
+* Reddit: http://redd.it/3fmbvr
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode11
 
 ## Future Episode Backlog:
