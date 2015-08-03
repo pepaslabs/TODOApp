@@ -55,6 +55,18 @@ In this episode, we implement task editing.
 * Reddit: http://redd.it/3fh97r
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode9
 
+## Episode 10
+In this episode, we start implementing our list of lists.
+* Youtube: http://youtu.be/5GXioeBg924 (17 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode10
+
+## Episode 11
+In this episode, we implement the "Done" view controller and experiment with composition instead of inheritance.
+* Youtube: http://youtu.be/CCiEiREXrHE (61 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode11
+
 ## Future Episode Backlog:
 * Support multiple lists
 * Better UX (support slide-to-edit table cells)
