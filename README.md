@@ -67,6 +67,12 @@ In this episode, we implement the "Done" view controller and experiment with com
 * Reddit: http://redd.it/3fmbvr
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode11
 
+## Episode 12
+In this episode, we implement a ListStore using inheritance.
+* Youtube: http://youtu.be/wxG14_qmvlE (23 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode12
+
 ## Future Episode Backlog:
 * Support multiple lists
 * Better UX (support slide-to-edit table cells)
