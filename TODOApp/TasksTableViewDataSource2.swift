@@ -8,27 +8,6 @@
 
 import UIKit
 
-class TaskStoreRepository
-{
-    static var sharedInstance: TaskStoreRepository = TaskStoreRepository()
-    
-    private var stores = [String: TaskStoreProtocol]()
-    
-    func taskStore(name: String) -> TaskStoreProtocol
-    {
-        if let store = stores[name]
-        {
-            return store
-        }
-        else
-        {
-            let store = NSUserDefaultsTaskStore(name: name)
-            stores[name] = store
-            return store
-        }
-    }
-}
-
 class TasksTableViewDataSource2: NSObject
 {
     let name: String
@@ -85,7 +64,7 @@ extension TasksTableViewDataSource2: UITableViewDataSource
     {
         if let store = taskStore
         {
-            return store.tasksCount()
+            return store.count()
         }
         else
         {

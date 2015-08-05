@@ -8,111 +8,111 @@
 
 import Foundation
 
-protocol TaskStoreProtocol: class
+protocol StringStoreProtocol: class
 {
-    func addTask(taskTitle: String)
-    func tasksCount() -> Int
-    func taskTitleAtIndex(index: Int) -> String?
-    func deleteTaskAtIndex(index: Int)
-    func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
-    func setTaskTitle(title: String, atIndex index: Int)
+    func addString(text: String)
+    func count() -> Int
+    func stringTextAtIndex(index: Int) -> String?
+    func deleteStringAtIndex(index: Int)
+    func moveStringAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func setStringText(text: String, atIndex index: Int)
 }
 
-class InMemoryTaskStore: TaskStoreProtocol
+class InMemoryStringStore: StringStoreProtocol
 {
-    private var tasks: [String] = [String]()
+    private var strings: [String] = [String]()
     
-    func addTask(taskTitle: String)
+    func addString(text: String)
     {
-        tasks.append(taskTitle)
+        strings.append(text)
     }
     
-    func tasksCount() -> Int
+    func count() -> Int
     {
-        return count(tasks)
+        return strings.count
     }
     
-    func taskTitleAtIndex(index: Int) -> String?
+    func stringTextAtIndex(index: Int) -> String?
     {
-        return tasks.get(index)
+        return strings.get(index)
     }
     
-    func deleteTaskAtIndex(index: Int)
+    func deleteStringAtIndex(index: Int)
     {
-        tasks.removeAtIndex(index)
+        strings.removeAtIndex(index)
     }
     
-    func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func moveStringAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
     {
-        let task = tasks.removeAtIndex(sourceIndex)
-        tasks.insert(task, atIndex: destinationIndex)
+        let text = strings.removeAtIndex(sourceIndex)
+        strings.insert(text, atIndex: destinationIndex)
     }
     
-    func setTaskTitle(title: String, atIndex index: Int)
+    func setStringText(text: String, atIndex index: Int)
     {
-        if index < tasks.count
+        if index < strings.count
         {
-            tasks[index] = title
+            strings[index] = text
         }
     }
 }
 
-class NSUserDefaultsTaskStore: TaskStoreProtocol
+class NSUserDefaultsStringStore: StringStoreProtocol
 {
+    private var strings: [String] = [String]()
+    private var name: String
+    private let stringsNSUserDefaultsKey: String
+    
     init(name: String)
     {
         self.name = name
-        tasksNSUserDefaultsKey = "_tasks_\(name)_NSUserDefaultsKey"
-        tasks = _loadTasksFromDisk()
+        stringsNSUserDefaultsKey = "_strings_\(name)_NSUserDefaultsKey"
+        strings = _loadTasksFromDisk()
     }
     
-    func addTask(taskTitle: String)
+    func addString(text: String)
     {
-        tasks.append(taskTitle)
+        strings.append(text)
         _writeTasksToDisk()
     }
     
-    func tasksCount() -> Int
+    func count() -> Int
     {
-        return count(tasks)
+        return strings.count
     }
     
-    func taskTitleAtIndex(index: Int) -> String?
+    func stringTextAtIndex(index: Int) -> String?
     {
-        return tasks.get(index)
+        return strings.get(index)
     }
-
-    func deleteTaskAtIndex(index: Int)
+    
+    func deleteStringAtIndex(index: Int)
     {
-        tasks.removeAtIndex(index)
+        strings.removeAtIndex(index)
         _writeTasksToDisk()
     }
     
-    func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func moveStringAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
     {
-        let task = tasks.removeAtIndex(sourceIndex)
-        tasks.insert(task, atIndex: destinationIndex)
+        let text = strings.removeAtIndex(sourceIndex)
+        strings.insert(text, atIndex: destinationIndex)
         _writeTasksToDisk()
     }
-
-    func setTaskTitle(title: String, atIndex index: Int)
+    
+    func setStringText(text: String, atIndex index: Int)
     {
-        if index < tasks.count
+        if index < strings.count
         {
-            tasks[index] = title
+            strings[index] = text
             _writeTasksToDisk()
         }
     }
-
-    private var tasks: [String] = [String]()
-    private var name: String
-    private let tasksNSUserDefaultsKey: String
     
     private func _loadTasksFromDisk() -> [String]
     {
-        if var tasks = NSUserDefaults.standardUserDefaults().arrayForKey(tasksNSUserDefaultsKey) as? [String]
+        if var strings = NSUserDefaults.standardUserDefaults().arrayForKey(stringsNSUserDefaultsKey) as? [String]
         {
-            return tasks
+            return strings
         }
         else
         {
@@ -122,7 +122,156 @@ class NSUserDefaultsTaskStore: TaskStoreProtocol
     
     private func _writeTasksToDisk()
     {
-        NSUserDefaults.standardUserDefaults().setObject(tasks, forKey: tasksNSUserDefaultsKey)
+        NSUserDefaults.standardUserDefaults().setObject(strings, forKey: stringsNSUserDefaultsKey)
     }
 }
 
+protocol TaskStoreProtocol: class
+{
+    func addTask(title: String)
+    func count() -> Int
+    func taskTitleAtIndex(index: Int) -> String?
+    func deleteTaskAtIndex(index: Int)
+    func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func setTaskTitle(title: String, atIndex index: Int)
+}
+
+class BaseTaskStore: TaskStoreProtocol
+{
+    private var stringStore: StringStoreProtocol
+    
+    init(stringStore: StringStoreProtocol)
+    {
+        self.stringStore = stringStore
+    }
+    
+    func addTask(title: String)
+    {
+        stringStore.addString(title)
+    }
+    
+    func count() -> Int
+    {
+        return stringStore.count()
+    }
+    
+    func taskTitleAtIndex(index: Int) -> String?
+    {
+        return stringStore.stringTextAtIndex(index)
+    }
+    
+    func deleteTaskAtIndex(index: Int)
+    {
+        stringStore.deleteStringAtIndex(index)
+    }
+    
+    func moveTaskAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    {
+        stringStore.moveStringAtIndex(sourceIndex, toIndex: destinationIndex)
+    }
+    
+    func setTaskTitle(title: String, atIndex index: Int)
+    {
+        stringStore.setStringText(title, atIndex: index)
+    }
+}
+
+class InMemoryTaskStore: BaseTaskStore {}
+class NSUserDefaultsTaskStore: BaseTaskStore {}
+
+class TaskStoreRepository
+{
+    static var sharedInstance: TaskStoreRepository = TaskStoreRepository()
+    
+    private var stores = [String: TaskStoreProtocol]()
+    
+    func taskStore(name: String) -> TaskStoreProtocol
+    {
+        if let store = stores[name]
+        {
+            return store
+        }
+        else
+        {
+            let stringStore = NSUserDefaultsStringStore(name: name)
+            let store = NSUserDefaultsTaskStore(stringStore: stringStore)
+            stores[name] = store
+            return store
+        }
+    }
+}
+
+protocol ListStoreProtocol: class
+{
+    func addList(title: String)
+    func count() -> Int
+    func listTitleAtIndex(index: Int) -> String?
+    func deleteListAtIndex(index: Int)
+    func moveListAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    func setListTitle(title: String, atIndex index: Int)
+}
+
+class BaseListStore: ListStoreProtocol
+{
+    private var stringStore: StringStoreProtocol
+    
+    init(stringStore: StringStoreProtocol)
+    {
+        self.stringStore = stringStore
+    }
+    
+    func addList(title: String)
+    {
+        stringStore.addString(title)
+    }
+    
+    func count() -> Int
+    {
+        return stringStore.count()
+    }
+    
+    func listTitleAtIndex(index: Int) -> String?
+    {
+        return stringStore.stringTextAtIndex(index)
+    }
+    
+    func deleteListAtIndex(index: Int)
+    {
+        stringStore.deleteStringAtIndex(index)
+    }
+    
+    func moveListAtIndex(sourceIndex: Int, toIndex destinationIndex: Int)
+    {
+        stringStore.moveStringAtIndex(sourceIndex, toIndex: destinationIndex)
+    }
+    
+    func setListTitle(title: String, atIndex index: Int)
+    {
+        stringStore.setStringText(title, atIndex: index)
+    }
+}
+
+class InMemoryListStore: BaseListStore {}
+class NSUserDefaultsListStore: BaseListStore {}
+
+class ListStoreRepository
+{
+    static var sharedInstance: ListStoreRepository = ListStoreRepository()
+    
+    private var stores = [String: ListStoreProtocol]()
+    
+    func listStore(name: String) -> ListStoreProtocol
+    {
+        if let store = stores[name]
+        {
+            return store
+        }
+        else
+        {
+            let stringStore = NSUserDefaultsStringStore(name: name)
+            let store = NSUserDefaultsListStore(stringStore: stringStore)
+            stores[name] = store
+            return store
+        }
+    }
+}
