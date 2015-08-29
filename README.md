@@ -73,6 +73,12 @@ In this episode, we implement a ListStore using inheritance.
 * Reddit: 
 * Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode12
 
+## Episode 13
+In this episode, we turn the modal EditTaskViewController into a generic EditStringViewController.
+* Youtube: http://youtu.be/a7bnC-1BiKA (20 minutes)
+* Reddit: 
+* Github tag: https://github.com/pepaslabs/TODOApp/releases/tag/episode13
+
 ## Future Episode Backlog:
 * Support multiple lists
 * Better UX (support slide-to-edit table cells)
