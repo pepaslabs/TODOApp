@@ -1,5 +1,5 @@
 //
-//  EditTaskViewController.swift
+//  EditStringViewController.swift
 //  TODOApp
 //
 //  Created by Pepas Personal on 7/12/15.
@@ -8,58 +8,59 @@
 
 import UIKit
 
-protocol ModalTaskCapturingDelegateProtocol: class
+protocol ModalStringCapturingDelegateProtocol: class
 {
-    func taskCapturingModalDidFinishCreatingNewTask(taskTitle: String)
-    func taskCapturingModalDidFinishEditingExistingTask(data: TaskEditingData)
-    func taskCapturingModalDidCancel()
+    func stringCapturingModalDidFinishCreatingNewString(string: String)
+    func stringCapturingModalDidFinishEditingExistingString(data: StringEditingData)
+    func stringCapturingModalDidCancel()
+    func kindOfThingBeingEdited() -> String
 }
 
-struct TaskEditingData
+struct StringEditingData
 {
-    var title: String
-    var index: Int
+    var string: String
+    var context: Any?
     
-    init(title: String, index: Int)
+    init(string: String, context: Any?)
     {
-        self.title = title
-        self.index = index
+        self.string = string
+        self.context = context
     }
 }
 
-class EditTaskViewController: UIViewController
+class EditStringViewController: UIViewController
 {
-    @IBOutlet weak var taskTitleTextField: UITextField!
-    weak var taskCapturingDelegate: ModalTaskCapturingDelegateProtocol?
+    @IBOutlet weak var stringTextField: UITextField!
+    weak var stringCapturingDelegate: ModalStringCapturingDelegateProtocol?
     
     deinit
     {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    private var data: TaskEditingData?
+    private var data: StringEditingData?
 }
 
 // MARK: Factory methods
-extension EditTaskViewController
+extension EditStringViewController
 {
     class func storyboard() -> UIStoryboard
     {
-        let storyboard = UIStoryboard(name: "EditTaskViewController", bundle: nil)
+        let storyboard = UIStoryboard(name: "EditStringViewController", bundle: nil)
         return storyboard
     }
     
-    class func instantiateFromStoryboard(#existingTaskData: TaskEditingData?) -> EditTaskViewController
+    class func instantiateFromStoryboard(#existingStringData: StringEditingData?) -> EditStringViewController
     {
         let storyboard = self.storyboard()
-        let vc = storyboard.instantiateViewControllerWithIdentifier("EditTaskViewController") as! EditTaskViewController
-        vc.data = existingTaskData
+        let vc = storyboard.instantiateViewControllerWithIdentifier("EditStringViewController") as! EditStringViewController
+        vc.data = existingStringData
         return vc
     }
 }
 
 // MARK: View Lifecycle
-extension EditTaskViewController
+extension EditStringViewController
 {
     override func viewDidLoad()
     {
@@ -74,7 +75,7 @@ extension EditTaskViewController
         super.viewWillAppear(animated)
         _subscribeToTextFieldNotifications()
         _updateNavBarDoneButtonEnabledness()
-        taskTitleTextField.becomeFirstResponder()
+        stringTextField.becomeFirstResponder()
     }
 
     override func viewDidDisappear(animated: Bool)
@@ -84,7 +85,7 @@ extension EditTaskViewController
     }
 }
 
-extension EditTaskViewController: UITextFieldDelegate
+extension EditStringViewController: UITextFieldDelegate
 {
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
@@ -94,7 +95,7 @@ extension EditTaskViewController: UITextFieldDelegate
 }
 
 // MARK: UITextField methods
-extension EditTaskViewController
+extension EditStringViewController
 {
     private func _subscribeToTextFieldNotifications()
     {
@@ -102,7 +103,7 @@ extension EditTaskViewController
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: action,
             name: UITextFieldTextDidChangeNotification,
-            object: taskTitleTextField)
+            object: stringTextField)
         
     }
     
@@ -110,7 +111,7 @@ extension EditTaskViewController
     {
         NSNotificationCenter.defaultCenter().removeObserver(self,
             name: UITextFieldTextDidChangeNotification,
-            object: taskTitleTextField)
+            object: stringTextField)
     }
     
     func textFieldDidChangeNotificationHandler(notification: NSNotification)
@@ -120,9 +121,9 @@ extension EditTaskViewController
 
     private func _setupTextField()
     {
-        taskTitleTextField.returnKeyType = .Done
-        taskTitleTextField.delegate = self
-        taskTitleTextField.text = data?.title
+        stringTextField.returnKeyType = .Done
+        stringTextField.delegate = self
+        stringTextField.text = data?.string
     }
     
     private func _textFieldDoneButtonWillGetTapped()
@@ -132,7 +133,7 @@ extension EditTaskViewController
 }
 
 // MARK: buttons
-extension EditTaskViewController
+extension EditStringViewController
 {
     private func _setupNavBarButtons()
     {
@@ -156,7 +157,7 @@ extension EditTaskViewController
     
     func doneButtonDidGetTapped()
     {
-        taskTitleTextField.resignFirstResponder()
+        stringTextField.resignFirstResponder()
         _finishIfAppropriate()
     }
     
@@ -168,27 +169,27 @@ extension EditTaskViewController
     private func _createCancelBarButtonItem() -> UIBarButtonItem
     {
         let action: Selector = "cancelButtonDidGetTapped"
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel,
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel,
             target: self,
             action: action)
-        return cancelBarButtonItem
+        return barButtonItem
     }
     
     func cancelButtonDidGetTapped()
     {
-        taskTitleTextField.resignFirstResponder()
-        taskCapturingDelegate?.taskCapturingModalDidCancel()
+        stringTextField.resignFirstResponder()
+        stringCapturingDelegate?.stringCapturingModalDidCancel()
     }
     
     private func _updateNavBarDoneButtonEnabledness()
     {
-        let shouldEnable = count(taskTitleTextField.text) > 0
+        let shouldEnable = count(stringTextField.text) > 0
         navigationItem.rightBarButtonItem?.enabled = shouldEnable
     }
 }
 
 // MARK: background view
-extension EditTaskViewController
+extension EditStringViewController
 {
     private func _setupBackgroundView()
     {
@@ -199,16 +200,16 @@ extension EditTaskViewController
     
     func tapDidGetRecognized(recognizer: UITapGestureRecognizer)
     {
-        taskTitleTextField.resignFirstResponder()
+        stringTextField.resignFirstResponder()
     }
 }
 
 // MARK: private helpers
-extension EditTaskViewController
+extension EditStringViewController
 {
     private func _finishIfAppropriate()
     {
-        if count(taskTitleTextField.text) > 0
+        if count(stringTextField.text) > 0
         {
             _finish()
         }
@@ -218,27 +219,27 @@ extension EditTaskViewController
     {
         if data != nil
         {
-            _finishEditingExistingTask()
+            _finishEditingExistingString()
         }
         else
         {
-            _finishCreatingNewTask()
+            _finishCreatingNewString()
         }
     }
     
-    private func _finishCreatingNewTask()
+    private func _finishCreatingNewString()
     {
-        let title = taskTitleTextField.text
-        taskCapturingDelegate?.taskCapturingModalDidFinishCreatingNewTask(title)
+        let string = stringTextField.text
+        stringCapturingDelegate?.stringCapturingModalDidFinishCreatingNewString(string)
     }
     
-    private func _finishEditingExistingTask()
+    private func _finishEditingExistingString()
     {
-        data!.title = taskTitleTextField.text
-        taskCapturingDelegate?.taskCapturingModalDidFinishEditingExistingTask(data!)
+        data!.string = stringTextField.text
+        stringCapturingDelegate?.stringCapturingModalDidFinishEditingExistingString(data!)
     }
     
-    private func _isEditingExistingTask() -> Bool
+    private func _isEditingExistingString() -> Bool
     {
         if data == nil
         {
@@ -263,13 +264,15 @@ extension EditTaskViewController
     
     private func _navBarTitle() -> String
     {
-        if _isEditingExistingTask()
+        var kindOfThing: String? = stringCapturingDelegate?.kindOfThingBeingEdited()
+        
+        if _isEditingExistingString()
         {
-            return "Edit Task"
+            return "Edit \(kindOfThing)"
         }
         else
         {
-            return "New Task"
+            return "New \(kindOfThing)"
         }
     }
 }

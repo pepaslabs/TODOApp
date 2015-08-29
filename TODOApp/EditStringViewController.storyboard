@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Edit Task View Controller-->
+        <!--Edit String View Controller-->
         <scene sceneID="Hd4-Jj-JcU">
             <objects>
-                <viewController storyboardIdentifier="EditTaskViewController" id="yei-D0-NTe" customClass="EditTaskViewController" customModule="TODOApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditStringViewController" id="yei-D0-NTe" customClass="EditStringViewController" customModule="TODOApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="h8d-ax-0bZ"/>
                         <viewControllerLayoutGuide type="bottom" id="aaa-hp-bcg"/>
@@ -35,7 +35,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="taskTitleTextField" destination="rp7-uM-KBN" id="2RI-4s-cdZ"/>
+                        <outlet property="stringTextField" destination="rp7-uM-KBN" id="unj-2d-HiU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tUz-p0-pF0" userLabel="First Responder" sceneMemberID="firstResponder"/>

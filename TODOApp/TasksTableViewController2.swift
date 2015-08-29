@@ -17,7 +17,7 @@ class TasksTableViewController2Factory
         vc.dataSource = TasksTableViewDataSource2(name: name)
         vc.cellEditMenuDelegate = CellEditMenuDelegate()
         vc.modalTaskCapturingDelegate = ModalTaskCapturingDelegate()
-        vc.addTaskDelegate = AddTaskDelegate()
+        vc.addTaskDelegate = AddStringDelegate()
         return vc
     }
     
@@ -36,7 +36,7 @@ class TasksTableViewController2: UITableViewController
     private var dataSource: TasksTableViewDataSource2?
     private var cellEditMenuDelegate: CellEditMenuDelegate?
     private var modalTaskCapturingDelegate: ModalTaskCapturingDelegate?
-    private var addTaskDelegate: AddTaskDelegate?
+    private var addTaskDelegate: AddStringDelegate?
 }
 
 // MARK: Factory methods
@@ -111,7 +111,7 @@ extension TasksTableViewController2
         
         addTaskDelegate?.viewController = self
         addTaskDelegate?.navigationItem = navigationItem
-        addTaskDelegate?.modalTaskCapturingDelegate = modalTaskCapturingDelegate
+        addTaskDelegate?.modalStringCapturingDelegate = modalTaskCapturingDelegate
     }
 }
 
@@ -191,15 +191,15 @@ class CellEditMenuDelegate
     {
         if let title = dataSource?.taskStore?.taskTitleAtIndex(index)
         {
-            let data = TaskEditingData(title: title, index: index)
+            let data = StringEditingData(string: title, context: index)
             _presentEditTaskViewController(data)
         }
     }
     
-    private func _presentEditTaskViewController(data: TaskEditingData)
+    private func _presentEditTaskViewController(data: StringEditingData)
     {
-        let vc = EditTaskViewController.instantiateFromStoryboard(existingTaskData: data)
-        vc.taskCapturingDelegate = modalTaskCapturingDelegate
+        let vc = EditStringViewController.instantiateFromStoryboard(existingStringData: data)
+        vc.stringCapturingDelegate = modalTaskCapturingDelegate
         let navC = UINavigationController(rootViewController: vc)
         viewController?.presentViewController(navC, animated: true, completion: nil)
     }
@@ -237,11 +237,11 @@ class CellEditMenuDelegate
     }
 }
 
-class AddTaskDelegate
+class AddStringDelegate
 {
     weak var viewController: UIViewController?
     weak var navigationItem: UINavigationItem?
-    weak var modalTaskCapturingDelegate: ModalTaskCapturingDelegate?
+    weak var modalStringCapturingDelegate: ModalStringCapturingDelegateProtocol?
 
     func addPlusBarButtonItemToNavBar()
     {
@@ -259,38 +259,43 @@ class AddTaskDelegate
     
     @objc func plusButtonDidGetTapped()
     {
-        _presentNewTaskViewController()
+        _presentNewStringViewController()
     }
     
-    private func _presentNewTaskViewController()
+    private func _presentNewStringViewController()
     {
-        let vc = EditTaskViewController.instantiateFromStoryboard(existingTaskData: nil)
-        vc.taskCapturingDelegate = modalTaskCapturingDelegate
+        let vc = EditStringViewController.instantiateFromStoryboard(existingStringData: nil)
+        vc.stringCapturingDelegate = modalStringCapturingDelegate
         let navC = UINavigationController(rootViewController: vc)
         viewController?.presentViewController(navC, animated: true, completion: nil)
     }
 }
 
-class ModalTaskCapturingDelegate: ModalTaskCapturingDelegateProtocol
+class ModalTaskCapturingDelegate: ModalStringCapturingDelegateProtocol
 {
     weak var viewController: UIViewController?
     weak var dataSource: TasksTableViewDataSource2?
 
-    func taskCapturingModalDidFinishCreatingNewTask(taskTitle: String)
+    func stringCapturingModalDidFinishCreatingNewString(string: String)
     {
-        dataSource?.addTask(taskTitle)
+        dataSource?.addTask(string)
         viewController?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func taskCapturingModalDidFinishEditingExistingTask(data: TaskEditingData)
+    func stringCapturingModalDidFinishEditingExistingString(data: StringEditingData)
     {
-        dataSource?.setTaskTitle(data.title, atIndex: data.index)
+        dataSource?.setTaskTitle(data.string, atIndex: data.context as! Int)
         viewController?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func taskCapturingModalDidCancel()
+    func stringCapturingModalDidCancel()
     {
         viewController?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func kindOfThingBeingEdited() -> String
+    {
+        return "Task"
     }
 }
 
